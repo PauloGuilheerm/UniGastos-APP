@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs "node" 
+    }
+
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to build')
+    } 
+    stages {
+
+        stage('Checkout') {
+            steps {
+                // Checkout the specified branch
+                git branch: "${params.BRANCH_NAME}", url: 'https://github.com/UniGastos-APP/Front-React-Native.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Install dependencies
+                bat 'npm install'
+            }
+        }
+        stage('Sonar Analysis') {
+            environment {
+                scannerHome = tool 'SONAR_UNIGASTOS'
+            }
+            steps {
+               withSonarQubeEnv('SONAR_LOCAL') {
+                       bat "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=Unigastos-front -Dsonar.token=sqa_3af3bb440a9b6a87a887be51594b57f34e1fe26a"
+                }
+            }
+        }
+        stage('Quality Gates') {
+            steps {
+                sleep(5)
+                timeout(time:1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+    }
+    
+}

@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@Auth":[
+        "./src/auth/index.ts"
+      ],
+      "@Components/*":[
+        "./src/components/*"
+      ],
+      "@Assets/*":[
+        "./src/assets/*"
+      ],
+      "@Context":[
+        "./src/context/index.tsx"
+      ],
+      "@Hooks/*":[
+        "./src/hooks/*"
+      ],
+      "@Routes/*":[
+        "./src/routes/*"
+      ],
+      "@Types/*":[
+        "./src/types/*"
+      ],
+      "@Screens/*":[
+        "./src/screens/*"
+      ],
+      "@Service/*":[
+        "./src/service/*"
+      ],
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts", 
+    "src/routes/index.js", 
+    "src/routes/index.js"
+  ],
+  "extends": "expo/tsconfig.base"
+}
