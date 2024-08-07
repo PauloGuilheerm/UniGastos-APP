@@ -18,7 +18,9 @@ export const stylesSheetContent = StyleSheet.create<SheetContentStyle>({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    marginTop: 10
+    marginTop: 10,
+    width: '90%',
+    marginLeft: 15
   },
   containerInputValue: {
     height: 100,
