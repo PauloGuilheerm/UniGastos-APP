@@ -22,7 +22,10 @@ export interface ProdctListStyle {
 export interface SheetContentStyle {
   sheetContainer: ViewStyle;
   container: ViewStyle;
-  containerSubInputs: ViewStyle;
+  containerInputQuantity: ViewStyle;
+  containerMinusIcon: ViewStyle;
+  containerPlusIcon: ViewStyle;
+  containerInputValue: ViewStyle;
   iconArrowLeft: ViewStyle;
   iconSum: ViewStyle;
   editProductContainer: ViewStyle;

@@ -7,11 +7,11 @@ import { useFormContext } from '../context'
 import { InputTextType } from './inputTextType';
 import useFormField from '../hooks/useFormField';
 
-export default function FormInputText({ label, placeholder, onChangeText, value, defaultValue, name, style} : InputTextType) : ReactElement<InputTextType> {
+export default function FormInputText({ label, placeholder, onChangeText, value, defaultValue, name, style, keyboardType} : InputTextType) : ReactElement<InputTextType> {
   const { formRef } = useFormContext();
   const { fieldName, value: fieldValue, setValue, ref, error} = useFormField(name, defaultValue || value);
 
-  const handleChange = (value : string | undefined) => {
+  const handleChange = (value : any) => {
     setValue(value);
     onChangeText && onChangeText(value);
     formRef?.current?.setErrors({...formRef?.current.getErrors(), [name] : null});
@@ -28,6 +28,7 @@ export default function FormInputText({ label, placeholder, onChangeText, value,
         onChangeText={handleChange}
         placeholder={placeholder}
         isInvalid={!!error}
+        keyboardType={keyboardType}
       />
       {!!error && (
         <FormControl.ErrorMessage marginLeft={3} leftIcon={<WarningOutlineIcon size="xs" />}>

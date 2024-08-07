@@ -5,5 +5,6 @@ export interface InputTextType extends InterfaceInputProps{
     name?: string;
     label?: string;
     onChangeText?: (value: string | undefined) => void;
-    style?:  StyleProp<ViewStyle> | undefined
+    style?:  StyleProp<ViewStyle> | undefined;
+    value?: any | undefined;
 }

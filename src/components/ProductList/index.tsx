@@ -27,7 +27,7 @@ function ProductList() : ReactElement {
 
   useEffect(() => {
     roomData?.costs?.products?.forEach((item) => {
-      RegisterSheet({name: item.id, sheet: ({item} : costProps) => <SheetContent  item={item} sheetId={item?.id} />})
+      RegisterSheet({name: item.id, sheet: () => <SheetContent  item={item} sheetId={item?.id} />})
     })
   }, [roomData?.costs]);
 

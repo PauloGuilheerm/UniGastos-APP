@@ -1,8 +1,9 @@
 import { View, Button } from 'native-base';
-import { ReactElement } from 'react';
-import { Keyboard } from 'react-native';
+import { ReactElement, useState } from 'react';
+import { Keyboard, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { SheetManager } from 'react-native-actions-sheet';
 import ActionSheet from 'react-native-actions-sheet';
 
@@ -16,7 +17,7 @@ import { costProps } from './types/costTypes';
 import { SubmitProps } from './types/sheetContent';
 
 export default function SheetContentLayout({ item, sheetId }: costProps): ReactElement<costProps> {
-  const { stompClient, roomData, userData, setUpdateWebSocket } = useAppContext();
+  const { stompClient, roomData, userData } = useAppContext();
 
   const handleSubmit = async ({ data: payload }: onSubmitProps<SubmitProps>) => {
     if (!payload) return;
@@ -61,6 +62,11 @@ export default function SheetContentLayout({ item, sheetId }: costProps): ReactE
 };
 
 function SheetContent({ sheetId, item }: costProps): ReactElement<costProps> {
+  const [quantity, setQuantity] = useState<string>("0");
+  
+  const handleAddQuantity = () => setQuantity((prev) => (parseInt(prev) + 1).toString());
+  const handleRemoveQuantity = () => setQuantity((prev) => (parseInt(prev) == 0 ? 0 : parseInt(prev) - 1).toString());
+
   const { formRef } = useFormContext();
 
   return <ActionSheet id={sheetId} containerStyle={stylesSheetContent.sheetContainer}>
@@ -76,25 +82,38 @@ function SheetContent({ sheetId, item }: costProps): ReactElement<costProps> {
         name="product"
         type="text"
         variant="rounded"
-        width="90%"
         style={{ width: "90%" }}
       />
     </View>
     <View>
-      <View style={stylesSheetContent.containerSubInputs}>
+      <View style={stylesSheetContent.containerInputQuantity}>
+        <TouchableOpacity onPress={handleRemoveQuantity}>
+          <View style={stylesSheetContent.containerMinusIcon}>
+            <FontAwesome name='minus' />
+          </View>
+        </TouchableOpacity>
         <FormInputText
           label="Quantidade"
           name="quantity"
+          value={quantity}
           keyboardType="numeric"
           variant="filled"
-          style={{ width: '45%' }}
+          onChangeText={(value : any)=> setQuantity(value.toString())}
+          style={{ width: '80%' }}
         />
+        <TouchableOpacity onPress={handleAddQuantity}>
+          <View style={stylesSheetContent.containerPlusIcon}>
+            <FontAwesome name='plus' />
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={stylesSheetContent.containerInputValue}>
         <FormInputText
           label="Valor"
           name="cost"
           keyboardType="numeric"
           variant="filled"
-          style={{ width: '45%' }}
+          style={{ width: '100%' }}
         />
       </View>
       <View style={stylesSheetContent.editProductContainer}>

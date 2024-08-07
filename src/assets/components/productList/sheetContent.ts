@@ -13,12 +13,42 @@ export const stylesSheetContent = StyleSheet.create<SheetContentStyle>({
     alignItems: 'flex-start',
     justifyContent: 'space-between'
   },
-  containerSubInputs: {
+  containerInputQuantity: {
+    height: 80,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    marginTop: 10
+  },
+  containerInputValue: {
     height: 100,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    marginTop: 10
+  },
+  containerMinusIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 25,
+    marginTop: 30,
+    marginRight: 10,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#000',
+  },
+  containerPlusIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 25,
+    marginTop: 30,
+    marginLeft: 10,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#000',
   },
   iconArrowLeft: {
     paddingTop: 15,
