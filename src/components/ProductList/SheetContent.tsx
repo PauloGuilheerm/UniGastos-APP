@@ -62,7 +62,7 @@ export default function SheetContentLayout({ item, sheetId }: costProps): ReactE
 };
 
 function SheetContent({ sheetId, item }: costProps): ReactElement<costProps> {
-  const [quantity, setQuantity] = useState<string>("0");
+  const [quantity, setQuantity] = useState<string>(item?.quantity?.toString() || "0");
   
   const handleAddQuantity = () => setQuantity((prev) => (parseInt(prev) + 1).toString());
   const handleRemoveQuantity = () => setQuantity((prev) => (parseInt(prev) == 0 ? 0 : parseInt(prev) - 1).toString());

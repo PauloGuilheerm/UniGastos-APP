@@ -33,19 +33,19 @@
 
 ## Capturas de Tela
 
-![Tela Inicial](https://via.placeholder.com/300x600)
+![Tela Inicial](./assets/telainicial.png)
 *Descrição: Tela inicial listando salas*
 
-![Entrar em Sala](https://via.placeholder.com/300x600)
+![Entrar em Sala](./assets/entrarEmUmaSala.png)
 *Descrição: Tela para entrar em uma sala*
 
-![Criar Sala](https://via.placeholder.com/300x600)
+![Criar Sala](./assets/criarSala.png)
 *Descrição: Tela para criar uma nova sala*
 
-![Lista de Produtos](https://via.placeholder.com/300x600)
-*Descrição: Tela com lista de produtos dentro de uma sala*
+![Lista de Produtos](./assets/salaComProdutos.png)
+*Descrição: Tela inicial da sala, com lista de produtos e valores*
 
-![Chat em Tempo Real](https://via.placeholder.com/300x600)
+![Chat em Tempo Real](./assets/chatDaSala.png)
 *Descrição: Chat em tempo real utilizando WebSocket*
 
 ## Instalação
