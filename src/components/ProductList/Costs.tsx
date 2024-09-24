@@ -1,13 +1,15 @@
 import { View, Text, Badge, Menu as NBMenu } from 'native-base';
-import { ReactElement } from 'react';
+import { ReactElement, memo} from 'react';
 import { SheetManager } from 'react-native-actions-sheet';
 import { TouchableOpacity, Pressable } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { styleCost } from '@Assets/components/productList/costs';
+
 import { costProps } from './types/costTypes';
 
-export default function Costs({ item, stompClient, chatId }: costProps): ReactElement<costProps> {
+export default memo(Costs);
+function Costs({ item, stompClient, chatId }: costProps): ReactElement<costProps> {
 
   const handleDeleteItem = () => {
     stompClient.publish({

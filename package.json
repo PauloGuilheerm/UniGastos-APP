@@ -25,6 +25,7 @@
     "@unform/core": "^2.1.6",
     "@unform/mobile": "2.1.6",
     "axios": "1.7.2",
+    "eas-cli": "^12.3.0",
     "eslint": "9.4.0",
     "expo": "51.0.9",
     "expo-constants": "16.0.2",

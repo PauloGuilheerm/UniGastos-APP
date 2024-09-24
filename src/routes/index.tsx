@@ -1,11 +1,14 @@
 import { useLayoutEffect, useState, useEffect } from 'react';
 import { BackHandler, AppState } from 'react-native';
-import NetInfo from '@react-native-community/netinfo';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { isLoged, logIn } from '@Auth';
 import { useAppContext } from '@Context';
+import RoomType from '@Types/Room';
+import { UserMessage } from '@Types/Message';
+import Message from '@Types/Message';
+import HttpClient from '@Service/httpClient';
 
 import CreateRoom from '../Screens/CreateRoom';
 import JoinRoom from '../Screens/JoinRoom';
@@ -21,21 +24,56 @@ const Stack = createNativeStackNavigator();
 export default function Routes() {
   const [logedIn, setLogedIn] = useState(null);
 
-  const { setUserData, setUpdateWebSocket } = useAppContext();
+  const { setUserData, setLoading, roomData, userData, setRoomData } = useAppContext();
 
+  const handleAppStateChange = async (nextAppState) => {
+    if (nextAppState === 'active') {
+      setLoading(true);
+
+      const resp = await HttpClient.get(`/chat/chatById?chatId=${roomData?.id}`).then((res) => res.data.data);
+
+      const formattedRoomData = new RoomType(resp.id, resp.roomId, resp.roomName, resp.costs, resp.participants, userData, resp?.messages);
+
+      if (resp?.messages) {
+        formattedRoomData.messages = roomData?.messages?.reverse().map((message: Message) => {
+          const user = new UserMessage(message.userId, message.name);
+          const createdAt = new Date(message.timestamp);
+
+          const formattedMessage: Message = new Message(
+            message.id,
+            message.id,
+            roomData?.id,
+            createdAt,
+            message.name,
+            message.type === "JOIN" || message.type === "PRICE" || message.type === "LEAVE" || message.type === "SPEND",
+            message.timestamp,
+            message.type,
+            message.userId,
+            user,
+            message.text,
+            message.content,
+          );
+
+          return formattedMessage;
+        });
+      };
+
+      console.log(formattedRoomData);
+
+      setLoading(false);
+      setRoomData(formattedRoomData)
+    }
+  };
+
+  const subscription = AppState.addEventListener('change', handleAppStateChange);
+  
   useEffect(() => {
-    const handleAppStateChange = (nextAppState) => {
-      if (nextAppState === 'active') {
-        setUpdateWebSocket(true);
-      }
-    };
 
-    const subscription = AppState.addEventListener('change', handleAppStateChange);
 
     return () => {
       subscription.remove();
     };
-  }, []);
+  }, [subscription]);
 
     useLayoutEffect(() => {
     (async () => {

@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { ReactElement } from 'react';
 
 import ChatMessage from '@Components/ChatMessage';
 import ProductList from '@Components/ProductList';
 import Header from './Header';
-import { ReactElement } from 'react';
 
 const Tab = createBottomTabNavigator();
 
