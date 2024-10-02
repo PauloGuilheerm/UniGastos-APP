@@ -1,5 +1,5 @@
-import { useLayoutEffect, useState, useEffect } from 'react';
-import { BackHandler, AppState } from 'react-native';
+import { useLayoutEffect, useState, useEffect} from 'react';
+import { BackHandler, AppState, AppStateStatus} from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -26,8 +26,8 @@ export default function Routes() {
 
   const { setUserData, setLoading, roomData, userData, setRoomData } = useAppContext();
 
-  const handleAppStateChange = async (nextAppState) => {
-    if (nextAppState === 'active') {
+  const handleAppStateChange = async (nextAppState : AppStateStatus) => {
+    if (nextAppState === 'active' && logedIn && !!roomData?.id) {
       setLoading(true);
 
       const resp = await HttpClient.get(`/chat/chatById?chatId=${roomData?.id}`).then((res) => res.data.data);
@@ -57,8 +57,6 @@ export default function Routes() {
           return formattedMessage;
         });
       };
-
-      console.log(formattedRoomData);
 
       setLoading(false);
       setRoomData(formattedRoomData)

@@ -23,46 +23,6 @@ export default function ProductListLayout() : ReactElement {
 function ProductList() : ReactElement {
   const { roomData, stompClient, setRoomData, loading, userData, update, setLoading} = useAppContext();
 
-  useEffect(()=> {
-    if(!update) return;
-    (async () => {
-      setLoading(true);
-
-      const resp = await HttpClient.get(`/chat/chatById?chatId=${roomData?.id}`).then((res) => res.data.data);
-
-      const formattedRoomData = new Room(resp.id, resp.roomId, resp.roomName, resp.costs, resp.participants, userData, resp?.messages);
-
-      if (resp?.messages) {
-        formattedRoomData.messages = roomData?.messages?.reverse().map((message: Message) => {
-          const user = new UserMessage(message.userId, message.name);
-          const createdAt = new Date(message.timestamp);
-
-          const formattedMessage: Message = new Message(
-            message.id,
-            message.id,
-            roomData?.id,
-            createdAt,
-            message.name,
-            message.type === "JOIN" || message.type === "PRICE" || message.type === "LEAVE" || message.type === "SPEND",
-            message.timestamp,
-            message.type,
-            message.userId,
-            user,
-            message.text,
-            message.content,
-          );
-
-          return formattedMessage;
-        });
-      };
-
-      console.log(formattedRoomData);
-
-      setLoading(false);
-      setRoomData(formattedRoomData)
-    })();
-  }, [update]);
-
   useEffect(() => {
     RegisterSheet({name: 'costSheet', sheet: SheetContent});
   }, [roomData?.costs]);
